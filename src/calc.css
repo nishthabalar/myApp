@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    /* background-color: black; */
+}
+
+.container {
+    /* background-color: rgb(36, 35, 35); */
+    width: 25vw;
+    height: auto;
+    position: relative;
+    margin: auto;
+    /* box-shadow: 8px 8px 8px silver; */
+    top: 90px;
+    /* border-radius: 40px; */
+}
+
+.screen {
+    /* border-radius: 10px; */
+    height: 90px;
+    width: 23vw;
+    background-color: rgba(255, 255, 255, 0.2);
+    font-size: 40px;
+    color: black;
+}
+
+.calc-btns {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+.btn {
+    background-color: rgb(24, 22, 22);
+    color: white;
+    height: 55px;
+    border-radius: 0;
+    border: none;
+    cursor: pointer;
+    /* outline: 1px solid; */
+    font-size: 20px;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.btn:hover {
+    background-color: rgb(24, 22, 22);
+    color: white;
+}
+
+input[type=text] {
+    border: none;
+    color: white;
+    text-align: right;
+    height: 90px;
+    width: 25vw;
+    background-color: rgb(53, 53, 50);
+    font-size: 28px;
+}

@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15vh;
+    background-color: #EDF1D6;
+}
+
+#puzzle_container {
+    position: relative;
+    width: 51vh;
+    height: 51vh;
+    border-radius: 5px;
+    /* background-color: #9DC08B; */
+    /* box-shadow: 10px 10px 13px #40513B; */
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.puzzle_block {
+    color: #f1faee;
+    background-color: #609966;
+    border: none;
+    outline: #40513B 1px solid;
+    transition: all 0.1s;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.rst button {
+    margin: 25px;
+    padding: 3px 8px;
+    font-size: 18px;
+    border: none;
+    background-color: #9DC08B;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #40513B;
+}
+
+#display {
+    font-size: 40px;
+    color: #40513B;
+}
