@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, json } from 'react-router-dom'
 import Card from 'react-bootstrap/Card';
 import { Col, Row } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
@@ -76,26 +76,57 @@ function ApiDemo3() {
     const [categ, setCateg] = useState('');
     const [price, setPrice] = useState('')
     const [descrip, setdescrip] = useState('')
+    const [editId, setEditId] = useState('')
+    const [editIndex, setEditIndex] = useState('')
     const [imgs, setImgs] = useState('');
-
+    const [isEdit, setIsEdit] = useState(false);
+    const [rate, setRate] = useState('');
 
     const addData = () => {
         // console.log('hello')
-        fetch('https://dummyjson.com/products/add', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "title": title,
-                "category": categ,
-                "description": descrip,
-                "price": price,
-
+        if (isEdit) {
+            fetch('https://dummyjson.com/products/' + editId, {
+                method: 'PUT', /* or PATCH */
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "title": title,
+                    "category": categ,
+                    "description": descrip,
+                    "price": price,
+                    "rating": rate,
+                })
             })
-        })
-            .then(res => res.json())
-            // .then(setAdd);
-            .then(json => setData2([...data2, json]))
+                .then(res => res.json())
+                .then(json => {
+                    var copyData = [...data2]
+                    copyData[editIndex] = json
+                    setData2(copyData)
+                });
+            setIsEdit(false);
+        }
+        else {
+            fetch('https://dummyjson.com/products/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "title": title,
+                    "category": categ,
+                    "description": descrip,
+                    "price": price,
+                    "rating": rate,
 
+                })
+            })
+                .then(res => res.json())
+                // .then(setAdd);
+                .then(json => setData2([...data2, json]))
+        }
+        setTitle('')
+        setCateg('')
+        setPrice('')
+        setdescrip('')
+        setImgs('')
+        setRate('')
         // setData2(...data2, add)
         handleClose();
     }
@@ -123,16 +154,17 @@ function ApiDemo3() {
         console.log(tempp)
         setData2(tempp)
     }
-    const editBtn = () => {
-        fetch('https://dummyjson.com/products/1', {
-            method: 'PUT', /* or PATCH */
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                title: 'iPhone Galaxy +1'
-            })
-        })
-            .then(res => res.json())
-            .then(console.log);
+    const editBtn = (itm, ind) => {
+        setIsEdit(true);
+        handleShow();
+        setTitle(itm.title);
+        setdescrip(itm.description);
+        setCateg(itm.category);
+        setPrice(itm.price);
+        setEditId(itm.id);
+        setEditIndex(ind)
+        setImgs(itm.thumbnail)
+        setRate(itm.rating)
 
     }
     return (
@@ -186,7 +218,7 @@ function ApiDemo3() {
             <Row>
 
                 {
-                    data2.map((itm) => {
+                    data2.map((itm, ind) => {
                         return (
                             <>
 
@@ -206,7 +238,7 @@ function ApiDemo3() {
                                                 <Link className='btn' to={`/product/${itm.id}`}>Read More</Link>
                                             </Button>
 
-                                            <RiEditLine onClick={handleShow} style={{ fontSize: '25px', cursor: 'pointer', marginRight: '10px', marginLeft: '10px' }} />
+                                            <RiEditLine onClick={() => { editBtn(itm, ind) }} style={{ fontSize: '25px', cursor: 'pointer', marginRight: '10px', marginLeft: '10px' }} />
                                             <AiOutlineDelete onClick={() => { deleteBtn(itm.id) }} style={{ fontSize: '25px', cursor: 'pointer' }} />
                                         </Card.Body>
                                     </Card>
@@ -252,6 +284,14 @@ function ApiDemo3() {
                             className="mb-3"
                             controlId="exampleForm.ControlTextarea1"
                         >
+                            <Form.Label>Rating</Form.Label>
+                            <Form.Control type="tel" placeholder="9.5"
+                                autoFocus value={rate} onChange={(e) => { setRate(e.target.value) }} />
+                        </Form.Group>
+                        <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlTextarea1"
+                        >
                             <Form.Label>Description</Form.Label>
                             <Form.Control type="text" placeholder="Lorem ipsum..."
                                 autoFocus value={descrip} onChange={(e) => { setdescrip(e.target.value) }} />
@@ -271,10 +311,11 @@ function ApiDemo3() {
                         Close
                     </Button>
                     <Button variant="primary" onClick={addData}>
-                        ADD
+                        SAVE
                     </Button>
                 </Modal.Footer>
             </Modal>
+
 
         </>
     )

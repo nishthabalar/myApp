@@ -66,24 +66,24 @@ function App() {
       {/* <FormDemo></FormDemo> */}
       {/* <ApiDemo></ApiDemo> */}
       {/* <ApiDemo2></ApiDemo2> */}
-      <Routes>
-        {/* <Route path='/' element={<ApiDemo />}></Route>
+      {/* <Routes> */}
+      {/* <Route path='/' element={<ApiDemo />}></Route>
         <Route path='/ApiDemo2' element={<ApiDemo2 />}></Route> */}
-        <Route path='/' element={<ApiDemo3 />}></Route>
+      {/* <Route path='/' element={<ApiDemo3 />}></Route>
         <Route path='/product/:id' element={<Product />}></Route>
-      </Routes >
+      </Routes > */}
       {/* <StudentResult></StudentResult> */}
       {/* <Routes> */}
       {/* <Route path='/' element={<ApiProducts />}></Route> */}
       {/* <Route path='/Menu' element={<MenuReady />}></Route> */}
       {/* <Route path='/' element={<ApiProducts />}></Route> */}
       {/* </Routes> */}
-      {/* <Routes>
+      <Routes>
         <Route path='/' element={<BlogHome />}></Route>
         <Route path='/Contact' element={<BlogContact />}></Route>
         <Route path='/Blogs' element={<Blogs />}></Route>
         <Route path='/Menu' element={<MenuReady />}></Route>
-      </Routes> */}
+      </Routes>
     </>
   );
 }
